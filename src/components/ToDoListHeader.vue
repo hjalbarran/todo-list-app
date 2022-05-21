@@ -3,7 +3,7 @@
     <!-- Componente header -->
     <header class="header">
       <h1>todos</h1>
-      <input class="new-todo" placeholder="What needs to be done?" autofocus @keyup.enter="test()">
+      <input class="new-todo" placeholder="What needs to be done?" v-model="newItem.name" autofocus @keyup.enter="test(newItem)">
     </header>
 </template>
 
@@ -13,10 +13,18 @@ export default {
   // props: {
   //   msg: String
   // }
-  methods: {
-    test() {
-      console.log('123')
+  data() {
+    return {
+      newItem: {
+        name: null,
+        completed: false
+      }
     }
+  },
+  methods: {
+    test(newItem) {
+      console.log(newItem)
+    } 
   }
 }
 </script>

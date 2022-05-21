@@ -2,11 +2,11 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <!-- TODO Component -->
-    <section class="todoapp">
+    <section class="todoapp" v-if="todoItems">
       <ToDoListHeader/>
       <ToDoListBody :todoItems="todoItems"/>
       <ToDoListFooter/>
-    </section>
+    </section> 
   </div>
 </template>
 
@@ -15,6 +15,7 @@
 import ToDoListHeader from '@/components/ToDoListHeader.vue'
 import ToDoListBody from '@/components/ToDoListBody.vue'
 import ToDoListFooter from '@/components/ToDoListFooter.vue'
+import axios from '@/services/axios.js'
 
 export default {
   name: 'ToDoApp',
@@ -25,17 +26,24 @@ export default {
   },
   data() {
     return {
-      // todoItems: [
-      //   {
-      //     name: 'Primero',
-      //     completed: true,
-      //   },
-      //   {
-      //     name: 'Segundo',
-      //     completed: false,
-      //   },
-      // ]
+      todoItems: null,
     }
+  },
+  created() {
+    // axios.get('https://my-json-server.typicode.com/hjalbarran/todo-list-app/todoItems')
+    //   .then((response) => {
+    //     this.todoItems = response.data
+    //   })
+    //   .catch((error) => {
+    //     console.error(error)
+    //   })
+    axios.getToDoItems()
+      .then((response) => {
+        this.todoItems = response.data
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 }
 </script>
