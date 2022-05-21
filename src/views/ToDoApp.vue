@@ -25,16 +25,16 @@ export default {
   },
   data() {
     return {
-      todoItems: [
-        {
-          name: 'Primero',
-          completed: true,
-        },
-        {
-          name: 'Segundo',
-          completed: false,
-        },
-      ]
+      // todoItems: [
+      //   {
+      //     name: 'Primero',
+      //     completed: true,
+      //   },
+      //   {
+      //     name: 'Segundo',
+      //     completed: false,
+      //   },
+      // ]
     }
   }
 }

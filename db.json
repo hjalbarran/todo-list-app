@@ -1,0 +1,12 @@
+{
+    "todoItems": [
+    {
+      "name": "Primero",
+      "completed": true
+    },
+    {
+      "name": "Segundo",
+      "completed": false
+    }
+  ]
+}
