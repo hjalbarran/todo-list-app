@@ -25,12 +25,16 @@ export default createStore({
   },
   actions: {
     fetchToDoItems({ commit }) {
-      axios.getToDoItems()
-      .then((response) => {
-        commit('SET_TODOS', response.data)
-      })
-      .catch((error) => {
-        console.error(error)
+      return new Promise((resolve, reject) => {
+        axios.getToDoItems()
+          .then((response) => {
+            commit('SET_TODOS', response.data)
+            resolve(response)
+          })
+          .catch((error) => {
+            console.error(error)
+            reject(error)
+          })
       })
     },
     addNewItem({ commit }, todoItem) {

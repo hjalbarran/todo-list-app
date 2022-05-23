@@ -1,11 +1,12 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <!-- TODO Component -->
     <section class="todoapp" v-if="todoItems">
-      <ToDoListHeader/>
-      <ToDoListBody :todoItems="todoItems"/>
-      <ToDoListFooter/>
+      <!-- HEADER -->
+      <ToDoListHeader />
+      <ToDoListBody :todoItems="filteredItems"/>
+      <!-- FOOTER hidden: when no todos. Receives count of completed and uncompleted tasks, and also the dynamic filtering/routing-->
+      <ToDoListFooter :unCompletedTasks="todoItemUnCompleted.length" :completedTask="todoItemCompleted.length" v-if="todoItems.length > 0" v-on:filterByCompleted="filterByCompletedMethod"/>
     </section> 
   </div>
 </template>
@@ -15,7 +16,6 @@
 import ToDoListHeader from '@/components/ToDoListHeader.vue'
 import ToDoListBody from '@/components/ToDoListBody.vue'
 import ToDoListFooter from '@/components/ToDoListFooter.vue'
-import axios from '@/services/axios.js'
 
 export default {
   name: 'ToDoApp',
@@ -24,32 +24,43 @@ export default {
     ToDoListBody,
     ToDoListFooter
   },
+  data() {
+    return {
+      filterByCompleted: null
+    }
+  },
+  methods: {
+    filterByCompletedMethod(val) {
+      this.filterByCompleted = val
+    }
+  },
   computed: {
+    filteredItems() {
+      const totalItems = this.$store.state.todoItems
+      if (this.filterByCompleted === null) return totalItems
+      else {
+        return totalItems.filter(e => e.completed == this.filterByCompleted)
+      }
+      
+    },
     todoItems() {
       return this.$store.state.todoItems
+    }, 
+    todoItemCompleted() {
+      if (this.$store.state.todoItems.length > 0)
+      return this.$store.state.todoItems.filter(e => e.completed === true)
+      else return 0
+    },
+    todoItemUnCompleted() {
+      if (this.$store.state.todoItems.length > 0)
+      return this.$store.state.todoItems.filter(e => e.completed === false)
+      else return 0
     }
   },
   created() {
-    // axios.get('https://my-json-server.typicode.com/hjalbarran/todo-list-app/todoItems')
-    //   .then((response) => {
-    //     this.todoItems = response.data
-    //   })
-    //   .catch((error) => {
-    //     console.error(error)
-    //   })
-
-    // axios.getToDoItems()
-    //   .then((response) => {
-    //     this.todoItems = response.data
-    //   })
-    //   .catch((error) => {
-    //     console.error(error)
-    //   })
-
-      this.$store.dispatch('fetchToDoItems')
-      .then((response) => {
-        this.todoItems = response
-      })
+    this.$store.dispatch('fetchToDoItems')
+    // .then(() => { })
+    // .catch(() => { })
   }
 }
 </script>

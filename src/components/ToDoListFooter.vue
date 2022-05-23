@@ -1,32 +1,37 @@
 /* eslint-disable */
 <template>
-    <!-- This footer should be hidden by default and shown when there are todos -->
     <footer class="footer">
       <!-- This should be `0 items left` by default -->
-      <span class="todo-count"><strong>0</strong> item left</span>
+      <span class="todo-count"><strong>{{ unCompletedTasks || 0}}</strong> item left</span>
       <!-- Remove this if you don't implement routing -->
       <ul class="filters">
-        <li>
+        <li @click="filterByCompleted(null)">
           <a class="selected" href="#/">All</a>
         </li>
-        <li>
+        <li @click="filterByCompleted(false)">
           <a href="#/active">Active</a>
         </li>
-        <li>
+        <li @click="filterByCompleted(true)">
           <a href="#/completed">Completed</a>
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->
-      <button class="clear-completed">Clear completed</button>
+      <button class="clear-completed" v-if="completedTask > 0">Clear completed</button>
     </footer>
 </template>
 
 <script>
 export default {
-  name: 'ToDoList'
-  // props: {
-  //   msg: String
-  // }
+  name: 'ToDoListFooter',
+  props: {
+    unCompletedTasks: Number,
+    completedTask: Number
+  },
+  methods: {
+    filterByCompleted(data) {
+      this.$emit('filterByCompleted', data)
+    }
+  }
 }
 </script>
 

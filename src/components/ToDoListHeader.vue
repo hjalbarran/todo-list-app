@@ -8,30 +8,35 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid'
 export default {
   name: 'ToDoList',
-  // props: {
-  //   msg: String
-  // }
+  props: {
+    totalCount: Number
+  },
   data() {
     return {
       newToDo: {
+        id: null,
         name: null,
         completed: false,
         edit: false
-      }
+      },
     }
   },
   methods: {
     submit() {
       const todoItem = {
-        ...this.newToDo
+        ...this.newToDo,
+        
       }
+      todoItem.id = uuidv4()
       this.$store.dispatch('addNewItem', todoItem)
       .then(() => {
         this.newToDo = {
           name: null,
-          completed: false
+          completed: false,
+          edit: false
         }
       })
     } 
