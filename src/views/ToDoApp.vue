@@ -4,10 +4,15 @@
     <section class="todoapp" v-if="todoItems">
       <!-- HEADER -->
       <ToDoListHeader />
+      <!-- BODY -->
       <ToDoListBody :todoItems="filteredItems"/>
       <!-- FOOTER hidden: when no todos. Receives count of completed and uncompleted tasks, and also the dynamic filtering/routing-->
       <ToDoListFooter :unCompletedTasks="todoItemUnCompleted.length" :completedTask="todoItemCompleted.length" v-if="todoItems.length > 0" v-on:filterByCompleted="filterByCompletedMethod"/>
     </section> 
+    <footer >
+			<p>Done by <a href="https://github.com/hjalbarran" target="_blank">Humberto Albarrán</a> @Madrid, Spain</p>
+		</footer>
+
   </div>
 </template>
 
@@ -59,6 +64,7 @@ export default {
   },
   created() {
     this.$store.dispatch('fetchToDoItems')
+    // Useful if I want to show some notificaton to the user...
     // .then(() => { })
     // .catch(() => { })
   }

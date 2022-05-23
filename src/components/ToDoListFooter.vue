@@ -13,7 +13,7 @@
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      <button class="clear-completed" v-if="completedTask > 0">Clear completed</button>
+      <button class="clear-completed" v-if="completedTask > 0" @click="clearCompleted()">Clear completed</button>
     </footer>
 </template>
 
@@ -27,6 +27,9 @@ export default {
   methods: {
     filterByCompleted(data) {
       this.$emit('filterByCompleted', data)
+    },
+    clearCompleted() {
+      this.$store.dispatch('clearAllCompleted')
     }
   }
 }

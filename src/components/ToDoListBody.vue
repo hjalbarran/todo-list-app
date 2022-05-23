@@ -1,9 +1,5 @@
 /* eslint-disable */
 <template>
-  <!-- This section should be hidden by default and shown when there are todos -->
-  <div>
-    <p>{{}}</p>
-  </div>
   <section class="main">
     <input id="toggle-all" class="toggle-all" type="checkbox">
     <label for="toggle-all" @click="AllCompleted()">Mark all as complete</label>
@@ -14,7 +10,7 @@
           <label @dblclick="todo.edit = true, editMode = true">{{ todo.name }}</label>
           <button class="destroy" @click="deleteToDoItem(todo.id)"></button>
         </div>
-          <input class="edit" ref="edition" placeholder="edit name" autofocus v-model="newName" @keyup.enter="updateItem(todo), todo.edit = false" @keyup.esc="todo.edit = false">
+          <input class="edit" ref="edition" placeholder="edit name" autofocus v-model="newName" @keyup.enter="updateItem(todo), todo.edit = false" @keyup.esc="todo.edit = false, autofocus" tabindex="-1"> 
       </li>
     </ul>
   </section>
@@ -26,6 +22,7 @@ export default {
   data() {
     return {
       newName: null,
+      allChecked: false
     }
   },
   props: {
@@ -36,7 +33,8 @@ export default {
   },
   methods: {
     AllCompleted() {
-      console.log("marcar todos complete")
+      this.allChecked = !this.allChecked
+      this.$store.dispatch('editbulkCompleted', this.allChecked)
     },
     changeComplete(todo) {
       todo.completed = !todo.completed
