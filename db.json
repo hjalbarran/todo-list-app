@@ -1,16 +1,4 @@
 {
   "todoItems": [
-    {
-      "id": "2e44fa11-91e6-41be-a620-2cd1d7e97077",
-      "name": "HOLA",
-      "completed": true,
-      "edit": false
-    },
-    {
-      "name": "asda",
-      "completed": false,
-      "edit": false,
-      "id": "5d7b8b94-ca12-4ead-afd3-d41184f5945d"
-    }
   ]
 }
