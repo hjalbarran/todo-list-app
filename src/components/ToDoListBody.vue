@@ -14,7 +14,7 @@
           <label @dblclick="todo.edit = true, editMode = true">{{ todo.name }}</label>
           <button class="destroy" @click="deleteToDoItem(todo.id)"></button>
         </div>
-          <input class="edit" placeholder="edit name" v-model="newName" @keyup.enter="updateItem(todo), todo.edit = false">
+          <input class="edit" ref="edition" placeholder="edit name" autofocus v-model="newName" @keyup.enter="updateItem(todo), todo.edit = false" @keyup.esc="todo.edit = false">
       </li>
     </ul>
   </section>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'ToDoList',
+  name: 'ToDoListBody',
   data() {
     return {
       newName: null,
@@ -33,17 +33,6 @@ export default {
       type: Array,
       default: []
     }
-  },
-  computed: {
-    // todoItems() {
-    //   return this.$store.state.todoItems
-    // },
-    // todoItemsCompleted() {
-    //   return this.todoItems.filter(e => e.completed === true)
-    // },
-    // todoItemsUncompleted() {
-    //   return this.todoItems.filter(e => e.completed === false)
-    // }
   },
   methods: {
     AllCompleted() {
@@ -70,8 +59,7 @@ export default {
     },
     clearValues() {
       this.newName = null
-    }
-      
+    },      
   }
 }
 </script>

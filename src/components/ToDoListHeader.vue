@@ -1,6 +1,5 @@
 /* eslint-disable */
 <template>
-    <!-- Componente header -->
     <header class="header">
       <h1>todos</h1>
       <input class="new-todo" placeholder="What needs to be done?" v-model="newToDo.name" autofocus @keyup.enter="submit()">
@@ -10,7 +9,7 @@
 <script>
 import { v4 as uuidv4 } from 'uuid'
 export default {
-  name: 'ToDoList',
+  name: 'ToDoListHeader',
   props: {
     totalCount: Number
   },
