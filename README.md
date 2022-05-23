@@ -12,9 +12,9 @@ npm install
 npm run serve
 ```
 ### 2. To run local db with json-server (This enable the local server, handles API Requests)
-
+```
 json-server --watch db.json
-
+```
 ### Compiles and minifies for production
 ```
 npm run build
