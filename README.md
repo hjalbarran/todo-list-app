@@ -6,13 +6,12 @@ This is my approach to the challenge.
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+### TO RUN THE PROJECT:
+### 1. Compiles and hot-reloads for development
 ```
 npm run serve
 ```
-
-## To run local db with json-server:
+### 2. To run local db with json-server (This enable the local server, handles API Requests)
 
 json-server --watch db.json
 
