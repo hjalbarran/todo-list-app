@@ -1,12 +1,10 @@
 {
-    "todoItems": [
+  "todoItems": [
     {
+      "id": 1,
       "name": "Primero",
-      "completed": true
-    },
-    {
-      "name": "Segundo",
-      "completed": false
+      "completed": true,
+      "edit": false
     }
   ]
 }

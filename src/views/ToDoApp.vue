@@ -24,9 +24,9 @@ export default {
     ToDoListBody,
     ToDoListFooter
   },
-  data() {
-    return {
-      todoItems: null,
+  computed: {
+    todoItems() {
+      return this.$store.state.todoItems
     }
   },
   created() {
@@ -37,12 +37,18 @@ export default {
     //   .catch((error) => {
     //     console.error(error)
     //   })
-    axios.getToDoItems()
+
+    // axios.getToDoItems()
+    //   .then((response) => {
+    //     this.todoItems = response.data
+    //   })
+    //   .catch((error) => {
+    //     console.error(error)
+    //   })
+
+      this.$store.dispatch('fetchToDoItems')
       .then((response) => {
-        this.todoItems = response.data
-      })
-      .catch((error) => {
-        console.error(error)
+        this.todoItems = response
       })
   }
 }

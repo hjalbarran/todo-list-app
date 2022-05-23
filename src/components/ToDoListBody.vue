@@ -10,22 +10,22 @@
       <!-- completed: {{todoItemsCompleted}}
       <br>
       Uncompleted: {{todoItemsUncompleted}} -->
-      <li class="completed" v-for="(todo, index) in todoItemsCompleted" :key="index">
+      <li :class="{'completed':todo.completed}" v-for="(todo, index) in todoItems" :key="index">
         <div class="view">
-          <input class="toggle" type="checkbox" checked>
-          <label>{{ todo.name }}</label>
-          <button class="destroy"></button>
+          <input class="toggle left-custom" type="checkbox" :checked="todo.completed" @click="changeComplete(todo)">
+          <label @dblclick="todo.edit = true">{{ todo.name }}</label>
+          <button class="destroy" @click="deleteToDoItem(todo.id)"></button>
         </div>
         <input class="edit" value="Create a TodoMVC template">
       </li>
-      <li v-for="(todo, index) in todoItemsUncompleted" :key="index">
+      <!-- <li v-for="(todo, index) in todoItemsUncompleted" :key="index">
         <div class="view">
           <input class="toggle" type="checkbox">
           <label>{{ todo.name }}</label>
           <button class="destroy"></button>
         </div>
         <input class="edit" value="Rule the web">
-      </li>
+      </li> -->
     </ul>
   </section>
 </template>
@@ -33,23 +33,33 @@
 <script>
 export default {
   name: 'ToDoList',
-  props: {
-    todoItems: {
-      type: Array,
-      default: []
-    }
-  },
+  // props: {
+  //   todoItems: {
+  //     type: Array,
+  //     default: []
+  //   }
+  // },
   computed: {
-    todoItemsCompleted() {
-      return this.todoItems.filter(e => e.completed === true)
+    todoItems() {
+      return this.$store.state.todoItems
     },
-    todoItemsUncompleted() {
-      return this.todoItems.filter(e => e.completed === false)
-    }
+    // todoItemsCompleted() {
+    //   return this.todoItems.filter(e => e.completed === true)
+    // },
+    // todoItemsUncompleted() {
+    //   return this.todoItems.filter(e => e.completed === false)
+    // }
   },
   methods: {
     AllCompleted() {
       console.log("marcar todos complete")
+    },
+    changeComplete(todo) {
+      todo.completed = !todo.completed
+      this.$store.dispatch('updatedCompleted', todo)
+    },
+    deleteToDoItem(toDoID) {
+      this.$store.dispatch('removeItem', toDoID)
     }
   }
 }
@@ -57,4 +67,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.left-custom {
+  left: 0;
+} 
 </style>

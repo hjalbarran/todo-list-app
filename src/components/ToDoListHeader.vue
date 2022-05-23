@@ -3,7 +3,7 @@
     <!-- Componente header -->
     <header class="header">
       <h1>todos</h1>
-      <input class="new-todo" placeholder="What needs to be done?" v-model="newItem.name" autofocus @keyup.enter="test(newItem)">
+      <input class="new-todo" placeholder="What needs to be done?" v-model="newToDo.name" autofocus @keyup.enter="submit()">
     </header>
 </template>
 
@@ -15,15 +15,25 @@ export default {
   // }
   data() {
     return {
-      newItem: {
+      newToDo: {
         name: null,
-        completed: false
+        completed: false,
+        edit: false
       }
     }
   },
   methods: {
-    test(newItem) {
-      console.log(newItem)
+    submit() {
+      const todoItem = {
+        ...this.newToDo
+      }
+      this.$store.dispatch('addNewItem', todoItem)
+      .then(() => {
+        this.newToDo = {
+          name: null,
+          completed: false
+        }
+      })
     } 
   }
 }
